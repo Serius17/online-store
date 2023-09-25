@@ -28,3 +28,8 @@ Route::get('/pengguna', [ProductController::class, 'index']);
 Route::post('/pengguna', [ProductController::class, 'store']);
 Route::patch('/pengguna/{id}', [ProductController::class, 'update']);
 Route::delete('/pengguna/{id}', [ProductController::class, 'delete']);
+
+Route::get('/order', [ProductController::class, 'index']);
+Route::post('/order', [ProductController::class, 'store']);
+Route::patch('/order/{id}', [ProductController::class, 'update']);
+Route::delete('/order/{id}', [ProductController::class, 'delete']);

@@ -2,16 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\FormatApi;
+use App\Http\Services\OrderServices;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+    protected $orderServices;
+    protected $formatApi;
+
+    public function __construct(OrderServices $orderServices, FormatApi $formatApi)
+    {
+        $this->orderServices = $orderServices;
+        $this->formatApi = $formatApi;
+    }
+
     public function index()
     {
-        //
+        $order = $this->orderServices->getAll();
+
+        if ($order) {
+            return $this->formatApi->createApi(200, 'Success', $order);
+        } else {
+            return $this->formatApi->createApi(404, 'Not Data Yet!');
+        }
     }
 
     /**
@@ -27,7 +42,14 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->only(['id_pengguna', 'order_items']);
+
+        $order = $this->orderServices->save($validated);
+        if ($order) {
+            return $this->formatApi->createApi(200, 'Success', $order);
+        } else {
+            return $this->formatApi->createApi(404, 'Not Data Yet!');
+        }
     }
 
     /**
@@ -51,7 +73,15 @@ class OrderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->only(['id_pengguna', 'order_items']);
+
+        $order = $this->orderServices->update($id, $validated);
+
+        if ($order) {
+            return $this->formatApi->createApi(200, 'Success', $order);
+        } else {
+            return $this->formatApi->createApi(404, 'Not Data Yet!');
+        }
     }
 
     /**
@@ -59,6 +89,12 @@ class OrderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $order = $this->orderServices->delete($id);
+
+        if ($order) {
+            return $this->formatApi->createApi(200, 'Success', $order);
+        } else {
+            return $this->formatApi->createApi(404, 'Not Data Yet!');
+        }
     }
 }

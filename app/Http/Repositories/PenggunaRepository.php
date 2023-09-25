@@ -44,4 +44,9 @@ class PenggunaRepository
 
         return $pengguna->delete();
     }
+
+    public function find($id)
+    {
+        return $this->pengguna->find($id);
+    }
 }
