@@ -3,27 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Helper\FormatApi;
-use App\Http\Services\ProductServices;
-use Illuminate\Http\JsonResponse;
+use App\Http\Services\PenggunaServices;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class PenggunaController extends Controller
 {
-    protected $productServices;
+    protected $penggunaServices;
     protected $formatApi;
 
-    public function __construct(ProductServices $productServices, FormatApi $formatApi)
+    public function __construct(PenggunaServices $penggunaServices, FormatApi $formatApi)
     {
-        $this->productServices = $productServices;
+        $this->penggunaServices = $penggunaServices;
         $this->formatApi = $formatApi;
     }
-
     public function index()
     {
-        $product = $this->productServices->getAll();
+        $pengguna = $this->penggunaServices->getAll();
 
-        if ($product) {
-            return $this->formatApi->createApi(200, 'Success', $product);
+        if ($pengguna) {
+            return $this->formatApi->createApi(200, 'Success', $pengguna);
         } else {
             return $this->formatApi->createApi(404, 'Not Data Yet!');
         }
@@ -44,15 +42,14 @@ class ProductController extends Controller
     {
         $validated = $request->only([
             'nama',
-            'harga',
-            'jumlah_stock'
+            'no_hp',
         ]);
 
         try {
-            $product = $this->productServices->save($validated);
+            $pengguna = $this->penggunaServices->save($validated);
 
-            if ($product) {
-                return $this->formatApi->createApi(200, 'Success', $product);
+            if ($pengguna) {
+                return $this->formatApi->createApi(200, 'Success', $pengguna);
             } else {
                 return $this->formatApi->createApi(404, 'Not Data Yet!');
             }
@@ -82,17 +79,16 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $product = $request->only([
+        $validated = $request->only([
             'nama',
-            'harga',
-            'jumlah_stock'
+            'no_hp',
         ]);
 
         try {
-            $product = $this->productServices->update($id, $product);
+            $pengguna = $this->penggunaServices->update($id, $validated);
 
-            if ($product) {
-                return $this->formatApi->createApi(200, 'Success', $product);
+            if ($pengguna) {
+                return $this->formatApi->createApi(200, 'Success', $pengguna);
             } else {
                 return $this->formatApi->createApi(404, 'Not Data Yet!');
             }
@@ -106,10 +102,10 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        $product = $this->productServices->delete($id);
+        $pengguna = $this->penggunaServices->delete($id);
 
-        if ($product) {
-            return $this->formatApi->createApi(200, 'Success Deleted', $product);
+        if ($pengguna) {
+            return $this->formatApi->createApi(200, 'Success Deleted', $pengguna);
         } else {
             return $this->formatApi->createApi(404, 'You Cant Delete This Data!');
         }

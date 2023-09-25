@@ -23,3 +23,8 @@ Route::get('/products', [ProductController::class, 'index']);
 Route::post('/products', [ProductController::class, 'store']);
 Route::patch('/products/{id}', [ProductController::class, 'update']);
 Route::delete('/products/{id}', [ProductController::class, 'delete']);
+
+Route::get('/pengguna', [ProductController::class, 'index']);
+Route::post('/pengguna', [ProductController::class, 'store']);
+Route::patch('/pengguna/{id}', [ProductController::class, 'update']);
+Route::delete('/pengguna/{id}', [ProductController::class, 'delete']);
