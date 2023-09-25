@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('order_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_product')->constrained();
-            $table->foreignId('id_order')->constrained();
+            $table->foreignId('id_product')->references('id')->on('products');
+            $table->foreignId('id_order')->references('id')->on('orders');
             $table->string('jumlah');
             $table->timestamps();
         });
