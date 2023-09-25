@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\FlashSaleController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderItemController;
+use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,12 +28,20 @@ Route::post('/products', [ProductController::class, 'store']);
 Route::patch('/products/{id}', [ProductController::class, 'update']);
 Route::delete('/products/{id}', [ProductController::class, 'delete']);
 
-Route::get('/pengguna', [ProductController::class, 'index']);
-Route::post('/pengguna', [ProductController::class, 'store']);
-Route::patch('/pengguna/{id}', [ProductController::class, 'update']);
-Route::delete('/pengguna/{id}', [ProductController::class, 'delete']);
+Route::get('/pengguna', [PenggunaController::class, 'index']);
+Route::post('/pengguna', [PenggunaController::class, 'store']);
+Route::patch('/pengguna/{id}', [PenggunaController::class, 'update']);
+Route::delete('/pengguna/{id}', [PenggunaController::class, 'delete']);
 
-Route::get('/order', [ProductController::class, 'index']);
-Route::post('/order', [ProductController::class, 'store']);
-Route::patch('/order/{id}', [ProductController::class, 'update']);
-Route::delete('/order/{id}', [ProductController::class, 'delete']);
+Route::get('/order', [OrderController::class, 'index']);
+Route::post('/order', [OrderController::class, 'store']);
+Route::patch('/order/{id}', [OrderController::class, 'update']);
+Route::delete('/order/{id}', [OrderController::class, 'delete']);
+
+Route::get('/order-item', [OrderItemController::class, 'index']);
+Route::post('/order-item', [OrderItemController::class, 'store']);
+Route::patch('/order-item/{id}', [OrderItemController::class, 'update']);
+Route::delete('/order-item/{id}', [OrderItemController::class, 'delete']);
+Route::delete('/order-item/{id}/detail', [OrderItemController::class, 'show']);
+
+Route::post('/flash-sale', [FlashSaleController::class, 'store']);

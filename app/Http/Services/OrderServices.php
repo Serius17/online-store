@@ -3,12 +3,14 @@
 namespace App\Http\Services;
 
 use App\Http\Repositories\OrderRepository;
+use App\Http\Repositories\ProductRepository;
 use Illuminate\Support\Facades\Validator;
 use InvalidArgumentException;
 
 class OrderServices
 {
     protected $orderRepository;
+
     public function __construct(OrderRepository $orderRepository)
     {
         $this->orderRepository = $orderRepository;

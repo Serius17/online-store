@@ -45,4 +45,22 @@ class ProductRepository
 
         return $product->delete();
     }
+
+    public function find($id)
+    {
+        $product = $this->product
+            ->select('*')
+            ->leftJoin('flash_sales', 'flash_sales.product_id', '=', 'products.id')
+            ->where('flash_sales.product_id', $id)
+            ->where('flash_sales.start_date', '<=', now())
+            ->where('flash_sales.end_date', '>=', now())
+            ->get();
+
+        return $product;
+    }
+
+    public function findById($id)
+    {
+        return $this->product->find($id);
+    }
 }
